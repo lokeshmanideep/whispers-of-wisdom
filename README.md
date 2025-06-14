@@ -1,79 +1,42 @@
-# Telegram Download Daemon - Krishna's Voice Extraction Workflow
+# Voice Notes Extraction & Automation
 
-This project helps you download videos from a Telegram channel, extract Lord Krishna's voice from each episode, transcribe the audio, and translate it to English.
+This project is my personal solution to a challenge I set for myself: I wanted to create a YouTube playlist of all of Lord Krishna's teachings from the Mahabharat TV series. Instead of doing everything by hand, I used a bit of code to automate the most repetitive parts.
 
-## Workflow Overview
+While some steps still need a human touch, this workflow saved me a ton of time. Here's how it works.
+
+## My Workflow
 
 1. **Download Videos from Telegram**
 
-   - The script downloads all videos from a specified Telegram channel using the Telethon library.
-   - Videos are saved in the `Videos` folder.
-   - Audio is extracted from each video and saved in the `Audios` folder.
+   - I wrote a script to grab all the episodes from a Telegram channel. No more downloading each video one by one! The videos go straight into my `Videos` folder, and the audio is automatically pulled out and saved in `Audios`.
 
-2. **Mark Voice Timings**
+2. **Mark Krishna's Voice Timings**
 
-   - For each episode, you manually note down the start and end times where Lord Krishna speaks.
-   - These timings are saved in the `timings.py` file.
+   - This is the only part I couldn't automate. I watch each episode and note down the exact times when Lord Krishna speaks. I save these timings in a Python file called `timings.py`.
 
-3. **Cut Audio Clips**
+3. **Cut Out Krishna's Voice Clips**
 
-   - Using the timings from `timings.py`, the script cuts the audio files to extract only the parts where Krishna speaks.
-   - The cut audio clips are saved for further processing.
+   - Using the timings I collected, another script slices the audio files so I get just the parts where Krishna is speaking. These clips are saved for the next steps.
 
-4. **Transcribe Audio to Text**
+4. **Transcribe the Audio**
 
-   - Each voice audio clip is sent to a speech-to-text API.
-   - The API returns the original language transcription.
+   - Each Krishna voice clip is sent to a speech-to-text API. The script gets back the transcription in the original language.
 
 5. **Translate to English**
-   - The original transcription is sent to a translation API.
-   - The API returns the English translation of Krishna's speech.
 
-## Folder Structure
+   - The transcription is then sent to a translation API, and I get the English version of Krishna's words.
 
-├── telegram_download_latest_new.py # Downloads videos and extracts audio  
-├── timings.py # Contains Krishna's voice timings for each episode  
-├── audio_generator.py # Cuts audio clips based on timings  
-├── transcribe.py # Transcribes and translates audio clips  
-├── Audios/ # Folder for extracted audio files  
-├── Videos/ # Folder for downloaded videos
+6. **Create a Video**
 
-## How to Use
+   - Using the extracted voice notes, I use a video editing software to create a new video that highlights Krishna's messages. This part is still manual, but it's much faster now that I have all the clips and transcriptions ready.
 
-1. **Set Up Environment**
+7. **Generate Title & Description**
 
-   - Install dependencies:  
-     `pip install -r requirements.txt`
-   - Set your Telegram API credentials and channel username in a `.env` file.
+   - I use the transcript in step 5 to generate the video title and description using Gemini. I wrote the API call for this, but I prefer to do it manually so I can brainstorm the most suitable title and tweak the description as needed.
 
-2. **Download Videos and Extract Audio**
+8. **Upload to YouTube**
+   - Finally, I wrote a script (`video_uploader.py`) that uploads the finished video to YouTube. It even sets the title, description, tags, thumbnail, and adds the video to a playlist automatically. No more clicking through YouTube's upload page every time!
 
-   - Run:  
-     `python telegram_download_latest_new.py`
-   - This will download videos and extract audio files.
+## Why This Was Fun
 
-3. **Mark Timings**
-
-   - Watch each episode and note down Krishna's voice timings.
-   - Add these timings to `timings.py`.
-
-4. **Cut Krishna's Voice Clips**
-
-   - Run:  
-     `python audio_generator.py`
-   - This will create audio clips for Krishna's voice.
-
-5. **Transcribe and Translate**
-   - Run:  
-     `python transcribe.py`
-   - This will transcribe the audio clips and translate them to English.
-
-## Notes
-
-- Make sure you have the correct API keys and access to the required APIs.
-- The process of marking timings is manual and requires you to listen to each episode.
-- All scripts are written in Python and should work on most systems.
-
----
-
-Feel free to improve or automate any step as needed!
+I didn't use any fancy tools—just Python scripts and some patience for the manual work. The scripts saved me a bunch of time in creating this playlist in my native language, Telugu. You can listen to the playlist here: [link](https://www.youtube.com/playlist?list=PLPgC7mD72GJ_rUG0khmdx-7CNDjRmxu-X)
